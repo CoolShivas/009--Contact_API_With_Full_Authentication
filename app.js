@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "express";
-import { register } from "./Controllers/user.js";
+import userRouter from "./Routes/user.js";
 
 const server = express();
 
@@ -19,12 +19,11 @@ server.use(bodyParser.json());
 
 // // // Starting of User Routes;
 
-// // // User Routes
-// // // @api description :- user register
-// // // @api method :- post
-// // // @api endPoint :- /api/user/register
+// // // server.post("/api/user/register", register);
+// // // Now, there is no need of post or get request from server file. This thing can be handler from router file now;
+// // // Therefore, instead of post/get request we have to use the middleware of router as post/get or anything else;
 
-server.post("/api/user/register", register);
+server.use("/api/user/", userRouter);
 
 // // // Ending of User Routes;
 
