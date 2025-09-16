@@ -46,7 +46,13 @@ server.post("/api/user/register", async (request, response) => {
     });
   }
 
-  let regUser = await UserSCHEMA.create({
+  let regUser = await UserSCHEMA.findOne({ userEmail: email });
+
+  if (regUser) {
+    return response.json({ message: "User already exist...!", success: false });
+  }
+
+  regUser = await UserSCHEMA.create({
     userName: name,
     userEmail: email,
     userPassword: password,
