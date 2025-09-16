@@ -1,0 +1,25 @@
+{
+  "name": "009--contact_api_with_full_authentication",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoolShivas/009--Contact_API_With_Full_Authentication.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CoolShivas/009--Contact_API_With_Full_Authentication/issues"
+  },
+  "homepage": "https://github.com/CoolShivas/009--Contact_API_With_Full_Authentication#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
