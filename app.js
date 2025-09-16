@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "express";
+import { UserSCHEMA } from "./Models/UserSCHEMA.js";
 
 const server = express();
 
@@ -23,57 +24,39 @@ server.use(bodyParser.json());
 // // // @api method :- post
 // // // @api endPoint :- /api/user/register
 
-server.post("/api/user/register", (request, response) => {
-  // console.log("Printing the data => ", request.body); // Not going to get data because we haven't made the ejs file or neither install the ejs;
-  // response.json({
-  //   message: "Data printing",
-  //   success: true,
-  //   data: request.body,
-  // }); // Not going to get json data also because we haven't made the index.ejs file or neither install the ejs;
-  // // Therefore, we are not made the route especially the route i.e, (server.get("/")) that's why we are not getting both console and response.json data;
-  // // So, finally we are going to make use of Thunder Bolt or PostMan to check our api because we don't have the Front-End part. For going ahead first make the Schema to automatically generate and manage the schema in your database;
+server.post("/api/user/register", async (request, response) => {
+  // console.log(request.body); // { name: 'shiv', email: 'shiv@gmail.com', password: '123' }
+  // response.json({ message: "data", success: true, data: request.body });
+  // {
+  //   "message": "data",
+  //   "success": true,
+  //   "data": {
+  //       "name": "shiv",
+  //       "email": "shiv@gmail.com",
+  //       "password": "123"
+  //   }
+  // }
 
-  // response.json({ message: "Data is posted successfully...!", success: true });
-  // // Now, Open the PostMan in VS Code itself and select the POST request then enter the url (http://localhost:8000/api/user/register) then select the body and enter this
-  /**
-   * {
-    "mame":"shiv",
-    "email":"shiv@gmail.com",
-    "password":"123"
-    }
-   */
-  // // Hit the send button. We will get the response
-  /**
-   * {
-    "message": "Data is posted successfully...!",
-    "success": true
-     }
-   */
-  // console.log("Printing Data => ", request.body);
-  /**
-   * Restarting 'app.js'
-Server is running at Port :-) 8000
-MongoDB Connected Successfully...!
-Printing Data =>  undefined
-   */
-  // // To resolve this above undefined. We have to use the bodyParser of express;
-  console.log("Printing Data => ", request.body); // Printing Data =>  { mame: 'shiv', email: 'shiv@gmail.com', password: '123' }
-  response.json({
-    message: "Data is posted successfully...!",
-    success: true,
-    data: request.body,
-  });
-  /**
-   * {
-  "message": "Data is posted successfully...!",
-  "success": true,
-  "data": {
-    "mame": "shiv",
-    "email": "shiv@gmail.com",
-    "password": "123"
+  const { name, email, password } = request.body;
+
+  if (name === "" || email === "" || password === "") {
+    return response.json({
+      message: "All fields are required",
+      success: false,
+    });
   }
-}
-   */
+
+  let regUser = await UserSCHEMA.create({
+    userName: name,
+    userEmail: email,
+    userPassword: password,
+  });
+
+  response.json({
+    message: "User created succcessfully...",
+    success: true,
+    data: regUser,
+  });
 });
 
 // // // Ending of User Routes;
