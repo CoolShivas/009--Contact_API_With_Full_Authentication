@@ -20,6 +20,7 @@
   "homepage": "https://github.com/CoolShivas/009--Contact_API_With_Full_Authentication#readme",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "express": "^5.1.0",
     "mongoose": "^8.18.1"
   }

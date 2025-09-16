@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "express";
 import { UserSCHEMA } from "./Models/UserSCHEMA.js";
+import bcrypt from "bcryptjs";
 
 const server = express();
 
@@ -52,10 +53,12 @@ server.post("/api/user/register", async (request, response) => {
     return response.json({ message: "User already exist...!", success: false });
   }
 
+  let hashPassword = await bcrypt.hash(password, 10);
+
   regUser = await UserSCHEMA.create({
     userName: name,
     userEmail: email,
-    userPassword: password,
+    userPassword: hashPassword,
   });
 
   response.json({
