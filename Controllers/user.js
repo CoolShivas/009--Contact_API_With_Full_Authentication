@@ -43,3 +43,36 @@ export const register = async (request, response) => {
     data: regUser,
   });
 };
+
+export const login = async (request, response) => {
+  const { email, password } = request.body;
+  console.log(request.body); // /// Getting data { email: 'hemu@gmail.com', password: '123' }
+
+  if (email === "" || password === "")
+    return response.json({
+      message: "All fields are required",
+      success: false,
+    });
+
+  const loginUser = await UserSCHEMA.findOne({ userEmail: email });
+  console.log("Printing the loginUser => ", loginUser);
+  /**
+   * Printing the loginUser =>  {
+  _id: new ObjectId('68c94a8592fb2e244681d140'),
+  userName: 'jayesh',
+  userEmail: 'jayesh@gmail.com',
+  userPassword: '123',
+  createdAt: 2025-09-16T11:31:17.345Z,
+  __v: 0
+}
+   */
+  if (!loginUser)
+    return response.json({ message: "User not exists..!", success: false });
+
+  const validPassword = await bcrypt.compare(password, loginUser.userPassword);
+
+  if (!validPassword)
+    return response.json({ message: "Invalid password..", success: false });
+
+  response.json({ message: `Welcome ${loginUser.userName}`, success: true });
+};

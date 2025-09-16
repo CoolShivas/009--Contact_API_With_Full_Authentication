@@ -23,7 +23,7 @@ server.use(bodyParser.json());
 // // // Now, there is no need of post or get request from server file. This thing can be handler from router file now;
 // // // Therefore, instead of post/get request we have to use the middleware of router as post/get or anything else;
 
-server.use("/api/user/", userRouter);
+server.use("/api/user/", userRouter); // It will be same for both register and login;
 
 // // // Ending of User Routes;
 
