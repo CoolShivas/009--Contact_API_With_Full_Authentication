@@ -1,7 +1,17 @@
 import express from "express";
 import mongoose from "mongoose";
+import bodyParser from "express";
 
 const server = express();
+
+///////***********************************************************************///////
+///////***********************************************************************///////
+
+// // // Starting of middlewares;
+
+server.use(bodyParser.json());
+
+// // // Ending of middlewares;
 
 ///////***********************************************************************///////
 ///////***********************************************************************///////
@@ -23,7 +33,7 @@ server.post("/api/user/register", (request, response) => {
   // // Therefore, we are not made the route especially the route i.e, (server.get("/")) that's why we are not getting both console and response.json data;
   // // So, finally we are going to make use of Thunder Bolt or PostMan to check our api because we don't have the Front-End part. For going ahead first make the Schema to automatically generate and manage the schema in your database;
 
-  response.json({ message: "Data is posted successfully...!", success: true });
+  // response.json({ message: "Data is posted successfully...!", success: true });
   // // Now, Open the PostMan in VS Code itself and select the POST request then enter the url (http://localhost:8000/api/user/register) then select the body and enter this
   /**
    * {
@@ -38,6 +48,31 @@ server.post("/api/user/register", (request, response) => {
     "message": "Data is posted successfully...!",
     "success": true
      }
+   */
+  // console.log("Printing Data => ", request.body);
+  /**
+   * Restarting 'app.js'
+Server is running at Port :-) 8000
+MongoDB Connected Successfully...!
+Printing Data =>  undefined
+   */
+  // // To resolve this above undefined. We have to use the bodyParser of express;
+  console.log("Printing Data => ", request.body); // Printing Data =>  { mame: 'shiv', email: 'shiv@gmail.com', password: '123' }
+  response.json({
+    message: "Data is posted successfully...!",
+    success: true,
+    data: request.body,
+  });
+  /**
+   * {
+  "message": "Data is posted successfully...!",
+  "success": true,
+  "data": {
+    "mame": "shiv",
+    "email": "shiv@gmail.com",
+    "password": "123"
+  }
+}
    */
 });
 
