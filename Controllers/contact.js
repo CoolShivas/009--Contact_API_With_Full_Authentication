@@ -115,3 +115,40 @@ Printing the saveContact =>  {
 }
    */
 };
+
+// // // Getting the specific contact by ID;
+export const getContactById = async (request, response) => {
+  // // // Firstly, If we want the specific user. We have to use the url as (http://localhost:8000/api/contact)
+  // // // Then, we have to enter the Id of that particular user after /contact/idnumber to get that particular id related user such as (http://localhost:8000/api/contact/68ca903f803785e664141637);
+  // // // Therefore, we have to use the params to get specific id that the user is going to provide us;
+
+  const identity = request.params.dynamic; // To grab the provided Id by user on url;
+  // // // Always remember one thing that (request.params.dynamic or request.params.id) that will be same as here is dynamic or id. Therefore, on router file you have to give the same such as (router.get("/:dynamic", getContactById);)
+
+  const searchContact = await ContactSCHEMA.findById(identity); // Finding that particular Id is available on our database;
+
+  if (!searchContact)
+    return response.json({ message: "No contact exists", success: false });
+
+  response.json({
+    message: "Fetched the contact related to id",
+    success: true,
+    searchContact,
+  });
+  // // // Open the Thunder Bolt or POSTMAN and select the GET request and enter the url (http://localhost:8000/api/contact/68ca903f803785e664141637) and hit send button. You will get the response as :-
+  /**
+   *{
+  "message": "Fetched the contact related to id",
+  "success": true,
+  "searchContact": {
+    "_id": "68ca903f803785e664141637",
+    "contactName": "wonderwomen",
+    "contactEmail": "wonderwomen@gmail.com",
+    "contactPhone": 9874563210,
+    "contactType": "private",
+    "createdAt": "2025-09-17T10:41:03.710Z",
+    "__v": 0
+  }
+}
+   */
+};

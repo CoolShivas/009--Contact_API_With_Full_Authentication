@@ -1,5 +1,9 @@
 import express from "express";
-import { getAllContacts, newContact } from "../Controllers/contact.js";
+import {
+  getAllContacts,
+  getContactById,
+  newContact,
+} from "../Controllers/contact.js";
 
 const router = express.Router();
 // // // New Contact
@@ -12,5 +16,7 @@ router.post("/newcontact", newContact);
 // // // @api method :- get
 // // // @api endPoint :- /api/contact/ i.e, (http://localhost:8000/api/contact/)
 router.get("/", getAllContacts);
+
+router.get("/:dynamic", getContactById);
 
 export default router;
