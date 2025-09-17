@@ -7,7 +7,10 @@ const router = express.Router();
 // // // @api method :- post
 // // // @api endPoint :- /api/user/register
 router.post("/register", register);
-
+// // // User Routes
+// // // @api description :- user register
+// // // @api method :- post
+// // // @api endPoint :- /api/user/login
 router.post("/login", login);
 
 export default router;

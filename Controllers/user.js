@@ -1,5 +1,6 @@
 import { UserSCHEMA } from "../Models/UserSCHEMA.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const register = async (request, response) => {
   // console.log(request.body); // { name: 'shiv', email: 'shiv@gmail.com', password: '123' }
@@ -46,7 +47,7 @@ export const register = async (request, response) => {
 
 export const login = async (request, response) => {
   const { email, password } = request.body;
-  console.log(request.body); // /// Getting data { email: 'hemu@gmail.com', password: '123' }
+  // console.log(request.body); // /// Getting data { email: 'hemu@gmail.com', password: '123' }
 
   if (email === "" || password === "")
     return response.json({
@@ -55,7 +56,7 @@ export const login = async (request, response) => {
     });
 
   const loginUser = await UserSCHEMA.findOne({ userEmail: email });
-  console.log("Printing the loginUser => ", loginUser);
+  // console.log("Printing the loginUser => ", loginUser);
   /**
    * Printing the loginUser =>  {
   _id: new ObjectId('68c94a8592fb2e244681d140'),
@@ -74,5 +75,15 @@ export const login = async (request, response) => {
   if (!validPassword)
     return response.json({ message: "Invalid password..", success: false });
 
-  response.json({ message: `Welcome ${loginUser.userName}`, success: true });
+  // // Creation of token and assign the secret key ("!@#$%") to verify the user token will be expires in one day;
+  // // If we assign ({ userId: loginUser }) it will give very long token that contains the whole information of user. So, to make the token small that's why we have used ({ userId: loginUser._id }) to get only id by id we can get the whole details;
+  const token = jwt.sign({ userId: loginUser._id }, "!@#$%", {
+    expiresIn: "1d",
+  });
+
+  response.json({
+    message: `Welcome ${loginUser.userName}`,
+    token,
+    success: true,
+  });
 };
