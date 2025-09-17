@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "express";
 import userRouter from "./Routes/user.js";
+import contactRouter from "./Routes/contact.js";
 
 const server = express();
 
@@ -24,6 +25,7 @@ server.use(bodyParser.json());
 // // // Therefore, instead of post/get request we have to use the middleware of router as post/get or anything else;
 
 server.use("/api/user/", userRouter); // It will be same for both register and login;
+server.use("/api/contact/", contactRouter); // It will be same for all the contact related things;
 
 // // // Ending of User Routes;
 
