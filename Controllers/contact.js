@@ -241,3 +241,27 @@ Printing updateSpecificContact =>  {
    */
   // // // Therefore, you can see the changes on MongoDB as it is also updated;
 };
+
+///////////********************************************************************************* */
+
+// // // Deleting the specific contact by ID;
+
+export const deleteContactById = async (request, response) => {
+  const id = request.params.id;
+
+  let deletionContact = await ContactSCHEMA.findByIdAndDelete(id);
+
+  if (!deletionContact)
+    return response.json({ message: "no contact exists", success: false });
+
+  response.json({ message: "contact deleted successfully...", success: true });
+  // // // Open the Thunder Bolt or POSTMAN and select the DELETE request and enter the url (http://localhost:8000/api/contact/68ca86f19afbab626760f7ed).
+  // // // Then, hit the send button. You will get the response as :-
+  /**
+   * {
+  "message": "contact deleted successfully...",
+  "success": true
+}
+   */
+  // // // Therefore, it is also deleted from the database of MongoDB.
+};
