@@ -60,6 +60,8 @@ export const getAllContacts = async (request, response) => {
   console.log("Printing all contacts => ", gettingContacts); // // Getting the same Output on Terminal;
 };
 
+///////////********************************************************************************* */
+
 // // // Creating the new contact;
 export const newContact = async (request, response) => {
   //   console.log("Printing the newContact => ", request.body);
@@ -116,6 +118,8 @@ Printing the saveContact =>  {
    */
 };
 
+///////////********************************************************************************* */
+
 // // // Getting the specific contact by ID;
 export const getContactById = async (request, response) => {
   // // // Firstly, If we want the specific user. We have to use the url as (http://localhost:8000/api/contact)
@@ -151,4 +155,89 @@ export const getContactById = async (request, response) => {
   }
 }
    */
+};
+
+///////////********************************************************************************* */
+
+// // // Updating the specific contact by ID;
+export const updateContactById = async (request, response) => {
+  const id = request.params.id;
+
+  const { name, email, phone, type } = request.body;
+  // console.log("Printing update contact => ", request.body);
+
+  let updateSpecificContact = await ContactSCHEMA.findByIdAndUpdate(
+    id,
+    {
+      contactName: name,
+      contactEmail: email,
+      contactPhone: phone,
+      contactType: type,
+    },
+    { new: true }
+  );
+  // console.log("Printing updateSpecificContact => ", updateSpecificContact);
+  /**
+   * Restarting 'app.js'
+Server is running at Port :-) 8000
+MongoDB Connected Successfully...!
+Printing updateSpecificContact =>  {
+  _id: new ObjectId('68ca86f19afbab626760f7ed'),
+  contactName: 'batman',
+  contactEmail: 'shaktimaan@gmail.com',
+  contactPhone: 4561237890,
+  contactType: 'public',
+  createdAt: 2025-09-17T10:01:21.249Z,
+  __v: 0
+}
+   */
+
+  if (!updateSpecificContact)
+    return response.json({ message: "No contact exist", success: false });
+
+  response.json({
+    message: "contact updated successfully...",
+    success: true,
+    data: updateSpecificContact,
+  });
+  // // // Open the Thunder Bolt or POSTMAN and select the PUT request and enter the url (http://localhost:8000/api/contact/68ca86f19afbab626760f7ed).
+  // // // Then, select the body tag and make whatever changes you want to change or update such as :-
+  /**
+    * * * Without update have a look
+    *  {
+  "name": "superman",
+  "email":"superman@gmail.com",
+  "phone":"1234567890",
+  "type":"private"
+}
+    * 
+
+** ** ** Now making changes have a look 
+
+ {
+  "name": "man of steel",
+  "email":"superman@gmail.com",
+  "phone":"1234567890",
+  "type":"private"
+}
+
+    */
+  // // //  Hit the send button. You will get the response as :-
+  /**
+   * {
+  "message": "contact updated successfully...",
+  "success": true,
+  "data": {
+    "_id": "68ca8e3169a835b942296d89",
+    "contactName": "man of steel",
+    "contactEmail": "superman@gmail.com",
+    "contactPhone": 1234567890,
+    "contactType": "private",
+    "createdAt": "2025-09-17T10:32:17.382Z",
+    "__v": 0
+  }
+}
+   * 
+   */
+  // // // Therefore, you can see the changes on MongoDB as it is also updated;
 };
