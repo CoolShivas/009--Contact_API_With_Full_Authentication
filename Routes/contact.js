@@ -6,13 +6,14 @@ import {
   newContact,
   updateContactById,
 } from "../Controllers/contact.js";
+import { isAuthenticated } from "../Middlewares/Auth.js";
 
 const router = express.Router();
 // // // New Contact
 // // // @api description :- create contact
 // // // @api method :- post
 // // // @api endPoint :- /api/contact/newcontact
-router.post("/newcontact", newContact);
+router.post("/newcontact", isAuthenticated, newContact);
 // // // Get all contacts
 // // // @api description :- get all contact
 // // // @api method :- get
