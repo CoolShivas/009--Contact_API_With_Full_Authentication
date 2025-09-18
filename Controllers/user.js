@@ -77,7 +77,7 @@ export const login = async (request, response) => {
 
   // // Creation of token and assign the secret key ("!@#$%") to verify the user token will be expires in one day;
   // // If we assign ({ userId: loginUser }) it will give very long token that contains the whole information of user. So, to make the token small that's why we have used ({ userId: loginUser._id }) to get only id by id we can get the whole details;
-  const token = jwt.sign({ userId: loginUser._id }, "!@#$%", {
+  const token = jwt.sign({ userId: loginUser._id }, process.env.JWT, {
     expiresIn: "1d",
   });
 

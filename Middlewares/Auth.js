@@ -108,7 +108,7 @@ export const isAuthenticated = async (request, response, next) => {
     return response.json({ message: "Please, Login first..", success: false });
 
   // // Extracting the token to get the user id from the Token;
-  const verifyingToken = jwt.verify(token, "!@#$%"); // At the time of login the secret key you have given with token mention here from Controllers/user.js file login function;
+  const verifyingToken = jwt.verify(token, process.env.JWT); // At the time of login the secret key you have given with token mention here from Controllers/user.js file login function;
 
   //   console.log(verifyingToken);// Go to POSTMAN enter url (http://localhost:8000/api/contact/newcontact) then mention header and value with token then fill body then hit send btn you will get the below Terminal Output as :-
   //   /**
