@@ -28,11 +28,11 @@ router.get("/:dynamic", getContactById);
 // // // @api description :- update contact by id
 // // // @api method :- put
 // // // @api endPoint :- /api/contact/ i.e, (http://localhost:8000/api/contact/:id)
-router.put("/:id", updateContactById);
+router.put("/:id", isAuthenticated, updateContactById);
 // // // Delete specific contact
 // // // @api description :- delete contact by id
 // // // @api method :- delete
 // // // @api endPoint :- /api/contact/ i.e, (http://localhost:8000/api/contact/:id)
-router.delete("/:id", deleteContactById);
+router.delete("/:id", isAuthenticated, deleteContactById);
 
 export default router;
