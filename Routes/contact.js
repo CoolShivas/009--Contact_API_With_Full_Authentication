@@ -3,6 +3,7 @@ import {
   deleteContactById,
   getAllContacts,
   getContactById,
+  getContactByUserId,
   newContact,
   updateContactById,
 } from "../Controllers/contact.js";
@@ -34,5 +35,10 @@ router.put("/:id", isAuthenticated, updateContactById);
 // // // @api method :- delete
 // // // @api endPoint :- /api/contact/ i.e, (http://localhost:8000/api/contact/:id)
 router.delete("/:id", isAuthenticated, deleteContactById);
+// // // Get user specific contact
+// // // @api description :- user specific contact by id
+// // // @api method :- get
+// // // @api endPoint :- /api/contact/ i.e, (http://localhost:8000/api/contact/userId:id)
+router.get("/userid/:iden", getContactByUserId);
 
 export default router;

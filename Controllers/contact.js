@@ -266,3 +266,84 @@ export const deleteContactById = async (request, response) => {
    */
   // // // Therefore, it is also deleted from the database of MongoDB.
 };
+
+///////////********************************************************************************* */
+
+// // // Getting the user specific contact by ID;
+
+export const getContactByUserId = async (request, response) => {
+  const idNew = request.params.iden;
+
+  // console.log("Printing the userCOntactById IDNEW => ", idNew); // Getting id here;
+
+  const userContactByID = await ContactSCHEMA.find({ contactUser: idNew });
+
+  // console.log("Printing the userCOntactById => ", userContactByID); // Getting id here;
+  /**
+   *
+ 
+  Restarting 'app.js'
+Server is running at Port :-) 8000
+Printing the userCOntactById IDNEW =>  68c955c79cc83e6ef7a5183b
+MongoDB Connected Successfully...!
+Printing the userCOntactById =>  [
+  {
+    _id: new ObjectId('68cbfbc7d160d9cb8718654d'),
+    contactName: 'shaktimaan',
+    contactEmail: 'shaktimaan@gmail.com',
+    contactPhone: 1022278945650,
+    contactType: 'public',
+    contactUser: new ObjectId('68c955c79cc83e6ef7a5183b'),
+    createdAt: 2025-09-18T12:32:07.549Z,
+    __v: 0
+  },
+  {
+    _id: new ObjectId('68cbff592c33d96dd7316ed6'),
+    contactName: 'shaktimaan',
+    contactEmail: 'shaktimaan@gmail.com',
+    contactPhone: 1022278945650,
+    contactType: 'public',
+    contactUser: new ObjectId('68c955c79cc83e6ef7a5183b'),
+    createdAt: 2025-09-18T12:32:07.549Z,
+    __v: 0
+  },
+   */
+
+  if (!userContactByID)
+    return response.json({ message: "No contact found..", success: false });
+
+  response.json({
+    message: "fetching the user specific contacts",
+    success: true,
+    userContactByID,
+  });
+  // // // Therefore, Open the POSTMAN and make a GET request with url (http://localhost:8000/api/contact/userid/68c955c79cc83e6ef7a5183b) then hit the send btn
+  /**
+   * {
+    "message": "fetching the user specific contacts",
+    "success": true,
+    "userContactByID": [
+        {
+            "_id": "68cbfbc7d160d9cb8718654d",
+            "contactName": "shaktimaan",
+            "contactEmail": "shaktimaan@gmail.com",
+            "contactPhone": 1022278945650,
+            "contactType": "public",
+            "contactUser": "68c955c79cc83e6ef7a5183b",
+            "createdAt": "2025-09-18T12:32:07.549Z",
+            "__v": 0
+        },
+        {
+            "_id": "68cbff592c33d96dd7316ed6",
+            "contactName": "shaktimaan",
+            "contactEmail": "shaktimaan@gmail.com",
+            "contactPhone": 1022278945650,
+            "contactType": "public",
+            "contactUser": "68c955c79cc83e6ef7a5183b",
+            "createdAt": "2025-09-18T12:47:21.592Z",
+            "__v": 0
+        }
+    ]
+}
+   */
+};
